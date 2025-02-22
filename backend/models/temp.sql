@@ -8,11 +8,11 @@ INSERT INTO `User` (`Username`, `Firstname`, `Lastname`, `Password`) VALUES
 ('alice_johnson', 'Alice', 'Johnson', 'hashedpassword4');
 
 -- Insert Tasks (creator gets write access = 1)
-INSERT INTO `Task` (`Name`, `Description`, `UserId`) VALUES
-('Project Setup', 'Set up the project structure and dependencies', 1),  
-('Design Database', 'Create ERD and database schema', 2),  
-('Develop API', 'Build RESTful API for tasks', 3),  
-('Frontend Development', 'Build UI components with Vue.js', 4);  
+INSERT INTO `Task` (`Name`, `Description`,`CreatedAt` ,`UserId`) VALUES
+('Project Setup', 'Set up the project structure and dependencies', '2025-02-15 08:00:00', 1),  
+('Design Database', 'Create ERD and database schema','2025-02-15 08:00:00', 2),  
+('Develop API', 'Build RESTful API for tasks','2025-02-15 08:00:00', 3),  
+('Frontend Development', 'Build UI components with Vue.js','2025-02-15 08:00:00', 4);  
 
 -- Insert Todos under tasks
 INSERT INTO `Todo` (`Name`, `Description`, `Completed`, `Start`, `End`, `TaskId`) VALUES
