@@ -24,3 +24,7 @@ class CreateUserTask(BaseModel):
     UserId: int
     TaskId: int
     Permission: bool
+
+class GetUserDetails(BaseModel):
+    Username: str
+    Password: str

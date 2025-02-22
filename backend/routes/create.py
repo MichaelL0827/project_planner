@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, Response, status, HTTPException
 from utils.helper import MakeConnection, QueryResult, HashPassword
-from models.create import CreateUser, CreateTask
+from models.body import CreateUser, CreateTask
 from models.queries import CreateNewUser, CreateNewTask
 from controllers.create import UsernameExist
 from datetime import datetime
