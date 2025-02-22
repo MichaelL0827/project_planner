@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, status, HTTPException
 from utils.helper import MakeConnection, QueryResult
-from models.queries import GetTasks
+from models.queries import GetTasks, GetTasksTodos
 
 Router = APIRouter()
 
@@ -9,7 +9,7 @@ async def GetTaskTodos(Username: str):
     try:
         ConnectionString = MakeConnection()
         try:
-            TaskTodos = QueryResult(ConnectionString, GetTasks, 'readall', (Username,))
+            TaskTodos = QueryResult(ConnectionString, GetTasksTodos, 'readall', (Username,))
             return TaskTodos
         except:
             return None
