@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.create import Router as Create
 from routes.test import Router as Test
 from routes.auth import Router as Auth
+from routes.read import Router as Read
 
 Server = FastAPI()
 
@@ -10,6 +11,7 @@ Server.add_middleware(CORSMiddleware,allow_origins=["*"],allow_credentials=True,
 
 Server.include_router(Create, prefix="/api/create")
 Server.include_router(Auth, prefix="/api/auth")
+Server.include_router(Read, prefix="/api/read")
 Server.include_router(Test, prefix="/api/test")
 
 

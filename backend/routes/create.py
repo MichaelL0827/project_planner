@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Body, Response, status, HTTPException
 from utils.helper import MakeConnection, QueryResult, HashPassword
-from models.body import CreateUser, CreateTask
-from models.queries import CreateNewUser, CreateNewTask
+from models.body import CreateUser, CreateTask, CreateTodo
+from models.queries import CreateNewUser, CreateNewTask, CreateNewTodo
 from controllers.create import UsernameExist
 from datetime import datetime
 
@@ -35,3 +35,15 @@ async def CreateTask(Task: CreateTask = Body(...)):
             return {"Status":"Cannot Create the"}
     except:
         return {"Status":"Cannot Connect to the Database"}
+    
+@Router.post("/todo")
+async def CreateTodo(Todo: CreateTodo = Body(...)):
+    try:
+        ConnectionString = MakeConnection()
+        try:
+            Todo = QueryResult(ConnectionString, CreateNewTodo, 'create', (Todo.Name, Todo.Description, Todo.Completed, Todo.Start, Todo.End, Todo.TaskId))
+            return Response(status_code=status.HTTP_201_CREATED)
+        except:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Missing Required Content")
+    except:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot Connect To The Database")
