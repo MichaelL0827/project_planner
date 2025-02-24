@@ -47,5 +47,9 @@ def QueryResult(ConnectionString:str, Query:str, Flag:str, Params: tuple[str] | 
                 Cursor.execute(Query, Params)
                 ConnectionString.commit()
                 return True
+            case 'update':
+                Cursor.execute(Query, Params)
+                ConnectionString.commit()
+                return True
     except:
         return False
