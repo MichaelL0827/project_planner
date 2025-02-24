@@ -3,7 +3,7 @@ from utils.helper import MakeConnection, QueryResult, HashPassword
 from models.body import GetUserDetails
 from models.queries import UserAuthentication
 from controllers.auth import CheckPassword
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 Router = APIRouter()
 
@@ -21,8 +21,9 @@ async def UserAuthenticate(User: GetUserDetails = Body(...)):
             else:
                 CreatedAt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 ExpiredAt = (datetime.now() + timedelta(hours=5)).strftime("%Y-%m-%d %H:%M:%S")
-                
-                return {"authentication": True, "created_at": CreatedAt, "expired_at": ExpiredAt, "username": User.Username}
+                UserId = QueryResult(ConnectionString, 'SELECT Id FROM user WHERE Username = %s', 'read', (User.Username,))
+                Timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
+                return {"authentication": True, "created_at": CreatedAt, "expired_at": ExpiredAt, "username": User.Username, "UserId":UserId['Id'], "Timestamp": Timestamp}
         except:
             raise HTTPException(status_code=status.HTTP_100_CONTINUE)
     except:
